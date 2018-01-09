@@ -3,7 +3,14 @@ package chapter10;
 public class cci_10_09 {
     
     public static int[] sortedMatrixSearch(int[][] M, int e) {
-        if (M.length == 0) return new int[] {-1, -1};
+        if (M.length == 0) {
+            System.out.println("This matrix is empty");
+            return new int[] {-1, -1};
+        }
+        if (!isSortedMatrix(M)) {
+            System.out.println("This is not a sorted matrix.");
+            return new int[] {-1, -1};
+        }
         int col_l = 0, col_r = M[0].length - 1;
         int row_l = 0, row_r = M.length - 1;
         while (row_l <= row_r && col_l <= col_r) {
@@ -27,6 +34,17 @@ public class cci_10_09 {
             }
         }
         return new int[] {-1, -1};
+    }
+
+    private static boolean isSortedMatrix(int[][] A) {
+       int n = A.length, m = A[0].length;
+       for (int i = 0; i < n; i++) {
+           for (int j = 0; j < m; j++) {
+                if (j < m-1 && A[i][j] > A[i][j+1]) return false;
+                if (i < n-1 && A[i][j] > A[i+1][j]) return false;
+           }
+       }
+       return true;
     }
 
     private static int[] getColumn(int[][] A, int j) {
